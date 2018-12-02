@@ -1,0 +1,15 @@
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+indent_style = space
+insert_final_newline = true
+
+# 4 space indentation
+[*.py]
+indent_size = 4
+
+[*.{yml,yaml,js,j2}]
+indent_size = 2

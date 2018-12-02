@@ -1,0 +1,28 @@
+version: '3'
+services:
+
+  ally-scraper:
+    build:
+      context: ./
+      dockerfile: containers/Dockerfile
+    environment:
+      - POSTGRES_HOST=ally-db
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=${postgres_username:-allydb}
+      - POSTGRES_PASSWORD=${postgres_password:-allydb}
+      - POSTGRES_DB=allydb
+      - SELENIUM_ADDRESS=${selenium_address}
+      - TIMEZONE=${timezone}
+    volumes:
+      - ./ally:/opt/ally
+    command: python -m ally.scraper ${username} ${account} ${opts}
+
+  ally-db:
+    build:
+      context: ./
+      dockerfile: containers/DockerfileDB
+    environment:
+      - POSTGRES_USER=${postgres_username:-allydb}
+      - POSTGRES_PASSWORD=${postgres_password:-allydb}
+    ports:
+      - "${postgres_port:-5432}:5432"
